@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}404 - Ruta no encontrada{% endblock %}
+
+{% block main %}
+<div class="container text-center my-5 py-5 reveal" style="animation: fadeIn 1s ease-in-out;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-1 fw-bold text-custom-green mb-4" style="text-shadow: 0 0 20px rgba(25, 135, 84, 0.5);">
+                404
+            </h1>
+            
+            <h2 class="text-white mb-4">¡Oops! Error de segmentación en la realidad</h2>
+            
+            <p class="lead text-muted mb-5">
+                Parece que la ruta que buscas no existe en este servidor. 
+                Tal vez el código se rompió o la página decidió tomarse unas vacaciones.
+            </p>
+            
+            <div class="bg-dark border border-secondary rounded p-4 mb-5 shadow-lg">
+                <code class="text-start d-block">
+                    <span class="text-info">if</span> page_found == <span class="text-warning">False</span>:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;print(<span class="text-success">"Ariel Serrano dice: ¡Vuelve al inicio!"</span>)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return redirect(<span class="text-success">"/"</span>)
+                </code>
+            </div>
+
+            <a href="/" class="btn btn-outline-success btn-lg px-5 fw-bold">
+                <i class="bi bi-house-door-fill"></i> Volver al Inicio
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Estilo extra para simular una terminal en el código 404 */
+    code {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+</style>
+{% endblock %}

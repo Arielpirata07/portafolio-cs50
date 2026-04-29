@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center reveal">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg mt-5">
+            <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                <h4 class="mb-0">Acceso Restringido</h4>
+            </div>
+            <div class="card-body bg-dark text-white">
+                <form action="/login" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nombre de Usuario</label>
+                        <input autocomplete="off" autofocus class="form-control bg-secondary text-white border-0" id="username" name="username" type="text" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input class="form-control bg-secondary text-white border-0" id="password" name="password" type="password" required>
+                    </div>
+                    <button class="btn btn-custom-green w-100" type="submit">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Enviar Mensajes | Portafolio{% endblock %}
+
+{% block main %}
+    <div class="container my-5 reveal">
+
+        <h2 class="text-center text-hacker mb-4">Contáctame</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card bg-dark border-secondary p-4 shadow-lg text-white">
+                    <form action="/enviar_mensaje" method="post">
+                        
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label fw-bold">Tu Nombre</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="nombre" name="nombre" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">Tu Correo Electrónico</label>
+                            <input type="email" class="form-control bg-secondary text-white border-0" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="mensaje" class="form-label fw-bold">Mensaje</label>
+                            <textarea class="form-control bg-secondary text-white border-0" id="mensaje" name="mensaje" rows="4" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-custom-green w-100 fw-bold fs-5">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

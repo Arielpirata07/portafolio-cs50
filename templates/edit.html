@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}Editar Proyecto | Portafolio{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center reveal">
+    <div class="col-md-8">
+        <div class="card shadow-lg mt-5 border-secondary">
+            <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                <h4 class="mb-0 text-hacker">Editar proyecto existente</h4>
+            </div>
+            
+            <div class="card-body bg-dark text-white">
+                <form action="/edit/{{ proyecto['id'] }}" method="post" enctype="multipart/form-data">
+                    
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-bold">Título del Proyecto</label>
+                        <input autocomplete="off" autofocus class="form-control bg-secondary text-white border-0" id="title" name="title" type="text" value="{{ proyecto['titulo'] }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label fw-bold">Descripción</label>
+                        <textarea class="form-control bg-secondary text-white border-0" id="description" name="description" rows="4" required>{{ proyecto['descripcion'] }}</textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="git_hub" class="form-label fw-bold">URL de GitHub (Opcional)</label>
+                        <input class="form-control bg-secondary text-white border-0" id="git_hub" name="git_hub" type="url" value="{{ proyecto['url_github'] }}">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="imagen" class="form-label fw-bold">Foto del Proyecto (opcional)</label>
+                        <input class="form-control bg-secondary text-white border-0" id="imagen" name="imagen" type="file" accept="image/*">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tecnologias" class="form-label fw-bold">Tecnologías</label>
+                        <input class="form-control bg-secondary text-white border-0" 
+                            id="tecnologias" name="tecnologias" type="text" 
+                            value="{{ proyecto['tecnologias'] }}">
+                    </div>
+                    <button class="btn btn-warning w-100 fw-bold fs-5" type="submit">Guardar Cambios</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

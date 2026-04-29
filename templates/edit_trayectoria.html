@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}Editar Trayectoria{% endblock %}
+
+{% block main %}
+<div class="container my-5 reveal">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-secondary">
+                <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                    <h4 class="mb-0 text-hacker">✏️ Editar Trayectoria</h4>
+                </div>
+                <div class="card-body bg-dark text-white">
+                    <form action="/edit_trayectoria/{{ trayectoria['id'] }}" method="post">
+                        
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label fw-bold">Título</label>
+                            <input autocomplete="off" class="form-control bg-secondary text-white border-0" 
+                                   id="titulo" name="titulo" type="text" 
+                                   value="{{ trayectoria['titulo'] }}" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="lugar" class="form-label fw-bold">Lugar / Institución</label>
+                            <input class="form-control bg-secondary text-white border-0" 
+                                   id="lugar" name="lugar" type="text"  
+                                   value="{{ trayectoria['lugar'] }}" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="descripcion" class="form-label fw-bold">Descripción Corta (Opcional)</label>
+                            <textarea class="form-control bg-secondary text-white border-0" 
+                                id="descripcion" name="descripcion" rows="3">{{ trayectoria['descripcion'] }}
+                            </textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="fecha_inicio" class="form-label fw-bold">Fecha de Inicio</label>
+                            <input class="form-control bg-secondary text-white border-0" 
+                                   id="fecha_inicio" name="fecha_inicio" type="date"  
+                                   value="{{ trayectoria['fecha_inicio'] }}" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="fecha_fin" class="form-label fw-bold">Fecha de Fin (o fecha actual si sigue vigente)</label>
+                            <input class="form-control bg-secondary text-white border-0" 
+                                   id="fecha_fin" name="fecha_fin" type="date"  
+                                   value="{{ trayectoria['fecha_fin'] }}" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Tipo</label>
+                            <select class="form-select bg-secondary text-white border-0" name="tipo" required>
+                                <option value="experiencia" {% if trayectoria['tipo'] == 'experiencia' %}selected{% endif %}>
+                                    Experiencia Laboral
+                                </option>
+                                <option value="educacion" {% if trayectoria['tipo'] == 'educacion' %}selected{% endif %}>
+                                    Educación
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-warning fw-bold fs-5" type="submit">Guardar Cambios</button>
+                            <a href="/admin" class="btn btn-outline-light">Cancelar y volver</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

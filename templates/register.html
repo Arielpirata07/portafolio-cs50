@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}Registrar Administrador{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center reveal">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg mt-5">
+            <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                <h4 class="mb-0">Crear Administrador</h4>
+            </div>
+            <div class="card-body bg-dark text-white">
+                <form action="/register" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nombre de Usuario</label>
+                        <input autocomplete="off" autofocus class="form-control bg-secondary text-white border-0" id="username" name="username" placeholder="Ej: ariel_admin" type="text" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input class="form-control bg-secondary text-white border-0" id="password" name="password" placeholder="Tu contraseña secreta" type="password" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="confirmation" class="form-label">Confirmar Contraseña</label>
+                        <input class="form-control bg-secondary text-white border-0" id="confirmation" name="confirmation" placeholder="Repite la contraseña" type="password" required>
+                    </div>
+                    <button class="btn btn-custom-green w-100" type="submit">Registrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

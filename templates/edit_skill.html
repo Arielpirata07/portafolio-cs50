@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Editar Habilidad{% endblock %}
+
+{% block main %}
+<div class="container my-5 reveal">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-secondary">
+                <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                    <h4 class="mb-0 text-hacker">✏️ Editar Habilidad</h4>
+                </div>
+                <div class="card-body bg-dark text-white">
+                    <form action="/edit_skill/{{ habilidad['id'] }}" method="post">
+                        
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label fw-bold">Tecnología / Herramienta</label>
+                            <input autocomplete="off" class="form-control bg-secondary text-white border-0" 
+                                   id="nombre" name="nombre" type="text" 
+                                   value="{{ habilidad['nombre'] }}" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="porcentaje" class="form-label fw-bold">Porcentaje de Dominio (0-100)</label>
+                            <input class="form-control bg-secondary text-white border-0" 
+                                   id="porcentaje" name="porcentaje" type="number" min="0" max="100" 
+                                   value="{{ habilidad['porcentaje'] }}" required>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-warning fw-bold fs-5" type="submit">Guardar Cambios</button>
+                            <a href="/admin" class="btn btn-outline-light">Cancelar y volver</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

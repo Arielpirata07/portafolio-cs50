@@ -1,0 +1,302 @@
+{% extends "layout.html" %}
+
+{% block title %}Panel Admin | Portafolio{% endblock %}
+
+{% block main %}
+
+    <div class="row justify-content-center mb-5 reveal">
+        <div class="col-md-6">
+            <div class="card bg-dark border-info shadow-lg text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-info">📄 Gestión de CV</h5>
+                    <p class="small text-muted">Sube tu CV en formato PDF para que los visitantes puedan descargarlo.</p>
+                    <form action="/upload_cv" method="post" enctype="multipart/form-data">
+                        <input type="file" name="cv_file" class="form-control form-control-sm bg-secondary text-white border-0 mb-2" accept=".pdf" required>
+                        <button type="submit" class="btn btn-info btn-sm w-100 fw-bold">Actualizar PDF</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5 border-secondary text-white">
+
+    <div class="row justify-content-center reveal">
+        <div class="col-md-8">
+            <div class="card shadow-lg mt-5 border-secondary">
+                <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                    <h4 class="mb-0 text-hacker">Cargar Nuevo Proyecto</h4>
+                </div>
+                
+                <div class="card-body bg-dark text-white">
+                    <form action="/admin" method="post" enctype="multipart/form-data">
+                        
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">Título del Proyecto</label>
+                            <input autocomplete="off" autofocus class="form-control bg-secondary text-white border-0" id="title" name="title" type="text" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-bold">Descripción</label>
+                            <textarea class="form-control bg-secondary text-white border-0" id="description" name="description" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="git_hub" class="form-label fw-bold">URL de GitHub (Opcional)</label>
+                            <input class="form-control bg-secondary text-white border-0" id="git_hub" name="git_hub" type="url" placeholder="https://github.com/tu-usuario/repo">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="imagen" class="form-label fw-bold">Foto del Proyecto (opcional)</label>
+                            <input class="form-control bg-secondary text-white border-0" id="imagen" name="imagen" type="file" accept="image/*">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="tecnologias" class="form-label fw-bold text-info">Tecnologías (separadas por coma)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" 
+                                id="tecnologias" name="tecnologias" placeholder="Ej: Python, Flask, SQLite3">
+                            <div class="form-text text-muted small">Esto creará las etiquetas de colores automáticamente.</div>
+                        </div>
+
+                        <button class="btn btn-custom-green w-100 fw-bold fs-5" type="submit">Guardar Proyecto</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5 border-secondary text-white">
+
+    <div class="row justify-content-center reveal">
+        <div class="col-md-10">
+            <h3 class="text-center text-hacker mb-4">Proyectos Publicados</h3>
+            
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover align-middle border-secondary">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Título</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for proyecto in proyectos %}
+                            <tr>
+                                <th scope="row">{{ proyecto['id'] }}</th>
+                                <td>{{ proyecto['titulo'] }}</td>
+                                <td class="text-center">
+                                    <a href="/edit/{{ proyecto['id'] }}" class="btn btn-sm btn-outline-warning me-2">Editar</a>
+                                    
+                                    <form action="/delete/{{ proyecto['id'] }}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-custom-red" onclick="return confirm('¿Estás seguro de que quieres borrar este proyecto?');">Borrar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center text-muted py-4">No tienes proyectos cargados todavía.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <hr class="my-5 border-secondary text-white">
+
+    <div class="row justify-content-center mb-5 reveal">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-secondary">
+                <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                    <h4 class="mb-0 text-hacker">Cargar Nueva Habilidad</h4>
+                </div>
+                <div class="card-body bg-dark text-white">
+                    <form action="/add_skill" method="post">
+                        
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label fw-bold">Tecnología / Herramienta</label>
+                            <input autocomplete="off" class="form-control bg-secondary text-white border-0" id="nombre" name="nombre" type="text" placeholder="Ej: Python, HTML, Git" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="porcentaje" class="form-label fw-bold">Porcentaje de Dominio (0-100)</label>
+                            <input class="form-control bg-secondary text-white border-0" id="porcentaje" name="porcentaje" type="number" min="0" max="100" placeholder="Ej: 80" required>
+                        </div>
+                        
+                        <button class="btn btn-custom-green w-100 fw-bold fs-5" type="submit">Agregar Habilidad</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5 reveal">
+        <div class="col-md-8">
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover align-middle border-secondary shadow-lg">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Habilidad</th>
+                            <th scope="col">Nivel</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for habilidad in habilidades %}
+                            <tr>
+                                <th scope="row">{{ habilidad['id'] }}</th>
+                                <td class="fw-bold">{{ habilidad['nombre'] }}</td>
+                                <td>
+                                    <div class="progress bg-secondary" style="height: 10px; width: 100px;">
+                                        <div class="progress-bar bg-success" style="--skill-width: {{ habilidad['porcentaje'] }}%; width: var(--skill-width);"></div>
+                                    </div>
+                                    <small>{{ habilidad['porcentaje'] }}%</small>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/edit_skill/{{ habilidad['id'] }}" class="btn btn-sm btn-outline-warning me-2">✏️ Editar</a>
+                                    
+                                    <form action="/delete_skill/{{ habilidad['id'] }}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Borrar esta habilidad?');">🗑️ Borrar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">No tienes habilidades cargadas todavía.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5 border-secondary text-white">
+    
+    <div class="row justify-content-center mb-5 reveal">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-secondary">
+                <div class="card-header text-center bg-dark text-white border-bottom border-secondary">
+                    <h4 class="mb-0 text-hacker">⏳ Agregar Experiencia o Educación</h4>
+                </div>
+                <div class="card-body bg-dark text-white">
+                    <form action="/add_trayectoria" method="post">
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Título / Cargo</label>
+                                <input autocomplete="off" type="text" class="form-control bg-secondary text-white border-0" name="titulo" placeholder="Ej: Desarrollador Backend" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Lugar / Institución</label>
+                                <input autocomplete="off" type="text" class="form-control bg-secondary text-white border-0" name="lugar" placeholder="Ej: Universidad Tecnológica" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Fecha de Inicio</label>
+                                <input autocomplete="off" type="text" class="form-control bg-secondary text-white border-0" name="fecha_inicio" placeholder="Ej: Ene 2022" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Fecha de Fin</label>
+                                <input autocomplete="off" type="text" class="form-control bg-secondary text-white border-0" name="fecha_fin" placeholder="Ej: Actualidad">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">Tipo</label>
+                                <select class="form-select bg-secondary text-white border-0" name="tipo" required>
+                                    <option value="experiencia">Experiencia Laboral</option>
+                                    <option value="educacion">Educación</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Descripción Corta (Opcional)</label>
+                            <textarea class="form-control bg-secondary text-white border-0" name="descripcion" rows="2" placeholder="Describe brevemente tus logros o lo que aprendiste..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-custom-green w-100 fw-bold fs-5">Guardar en Trayectoria</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-5 reveal">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover align-middle border-secondary shadow-lg">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Trayectoria</th>
+                            <th scope="col">Lugar</th>
+                            <th scope="col">Rango de fechas</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trayectoria in trayectorias %}
+                            <tr>
+                                <th scope="row">{{ trayectoria['id'] }}</th>
+                                <td class="fw-bold">{{ trayectoria['titulo'] }}</td>
+                                <td class="fw-bold">{{ trayectoria['lugar'] }}</td>
+                                <td class="fw-bold">{{ trayectoria['fecha_inicio'] }} - {{ trayectoria['fecha_fin'] }}</td>
+                                <td class="text-center">
+                                    <a href="/edit_trayectoria/{{ trayectoria['id'] }}" class="btn btn-sm btn-outline-warning me-2" >✏️ Editar</a>
+
+                                    <form action="/delete_trayectoria/{{ trayectoria['id'] }}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Borrar esta trayectoria?');">🗑️ Borrar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">No tienes trayectorias cargadas todavía.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5 border-secondary text-white">
+
+    <h3 class="text-center text-hacker mb-4">📬 Bandeja de Entrada</h3>
+    
+    <div class="row justify-content-center mb-5 reveal">
+        <div class="col-md-8">
+            {% for msj in mensajes %}
+                <div class="card bg-dark text-white border-secondary mb-3 shadow-lg">
+                    <div class="card-header border-secondary d-flex justify-content-between align-items-center bg-secondary bg-opacity-25">
+                        <div>
+                            <strong class="fs-5">{{ msj['nombre'] }}</strong> 
+                            <span class="text-info ms-2">&lt;{{ msj['email'] }}&gt;</span>
+                        </div>
+                        
+                        <form action="/delete_mensaje/{{ msj['id'] }}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Borrar este mensaje definitivamente?');">🗑️ Borrar</button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ msj['mensaje'] }}</p>
+                    </div>
+                    <div class="card-footer border-secondary text-muted text-end small">
+                        Recibido el: {{ msj['fecha'] }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-dark border-secondary text-center text-muted shadow-lg" role="alert">
+                    No tienes mensajes nuevos en tu bandeja.
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
