@@ -16,6 +16,7 @@ app.secret_key = "una_clave_super_secreta_y_segura"
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_FILE_DIR"] = "/tmp"
 Session(app)
 
 # Definimos dónde se guardarán las imágenes
